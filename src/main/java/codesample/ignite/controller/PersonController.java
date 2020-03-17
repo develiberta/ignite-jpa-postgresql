@@ -121,9 +121,9 @@ System.out.println("ok1");
 //		cache.query(new SqlFieldsQuery("CREATE TABLE Person " +
 //		    "(id long primary key, name varchar)").setSchema("PUBLIC")).getAll();
 System.out.println("ok2");		
-		cache.query(new SqlFieldsQuery("SELECT * FROM \"person\""));
+		cache.query(new SqlFieldsQuery("SELECT * FROM person"));
 System.out.println("ok3");	
-		SqlFieldsQuery sql = new SqlFieldsQuery("select name from\"person\" where name = 'hi'");
+		SqlFieldsQuery sql = new SqlFieldsQuery("select name from person where name = 'hi'");
 System.out.println(cache.query(sql).getAll());	
 //		try (QueryCursor<List<?>> cursor = cache.query(sql)) {
 //			  for (List<?> row : cursor)

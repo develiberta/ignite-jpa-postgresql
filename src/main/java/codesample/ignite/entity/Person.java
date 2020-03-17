@@ -22,35 +22,35 @@ import com.querydsl.core.annotations.QueryEntity;
 @SequenceGenerator(name = "person_seq", sequenceName = "person_seq", allocationSize = 1)
 @NoArgsConstructor
 @Getter @Setter
-@EqualsAndHashCode(of = "pname")
+@EqualsAndHashCode(of = "name")
 public class Person {
     @Id
     @QuerySqlField(index = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
-    private Long pid;
+    private Long id;
 
     @QuerySqlField(index = true)
-    private String pname;
+    private String name;
 
 	public Long getPid() {
-		return pid;
+		return id;
 	}
 
 	public void setId(Long pid) {
-		this.pid = pid;
+		this.id = pid;
 	}
 
 	public String getPname() {
-		return pname;
+		return name;
 	}
 
 	public void setName(String pname) {
-		this.pname = pname;
+		this.name = pname;
 	}
 	
 	/* */
 	public String toString() {
-		return String.format("id: %d, name: %s\n", pid, pname);
+		return String.format("id: %d, name: %s\n", id, name);
 	}
    
 }

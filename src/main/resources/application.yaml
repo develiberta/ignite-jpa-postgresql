@@ -1,9 +1,10 @@
 spring.datasource:
-#  platform: postgres
+  platform: postgres
 #  driver-class-name: org.postgresql.Driver
 #  url: jdbc:postgresql://localhost:5432/ignite
   driver-class-name: org.h2.Driver
-  url: jdbc:h2:file:~/testdb;DATABASE_TO_UPPER=false
+  url: jdbc:h2:file:~/testdb;
+  # H2 DB CASE SENSITIVE : DATABASE_TO_UPPER=false
   username: postgres
   password: postgre
 

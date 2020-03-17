@@ -70,17 +70,17 @@ public class IgniteConfig {
         /* Query Entity Configuration 시도 : 안됨 */
         cache.setIndexedTypes(Long.class, Person.class);
         
-        QueryEntity queryEntity = new QueryEntity();
-        queryEntity.setTableName("person");
-        queryEntity.setKeyType("java.lang.Long");
-        queryEntity.setValueType("codesample.ignite.entity.Person");
-        LinkedHashMap<String, String> fields = new LinkedHashMap<String, String>();
-        fields.put("id", "java.lang.Long");
-        fields.put("name", "java.lang.String");
-        queryEntity.setFields(fields);
-        List<QueryEntity> list = new ArrayList<QueryEntity>();
-        list.add(queryEntity);
-        cache.setQueryEntities(list);
+//        QueryEntity queryEntity = new QueryEntity();
+//        queryEntity.setTableName("person");
+//        queryEntity.setKeyType("java.lang.Long");
+//        queryEntity.setValueType("codesample.ignite.entity.Person");
+//        LinkedHashMap<String, String> fields = new LinkedHashMap<String, String>();
+//        fields.put("id", "java.lang.Long");
+//        fields.put("name", "java.lang.String");
+//        queryEntity.setFields(fields);
+//        List<QueryEntity> list = new ArrayList<QueryEntity>();
+//        list.add(queryEntity);
+//        cache.setQueryEntities(list);
         
         return cache;
     }

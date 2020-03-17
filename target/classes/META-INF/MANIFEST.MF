@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: code-sample-ignite-postgres-backstore
+Implementation-Version: 2.0.5.RELEASE
+Built-By: uclick
+Implementation-Vendor-Id: org.springframework.boot
+Build-Jdk: 1.8.0_232
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/code-sample-ignite-postgres-backstore
+Created-By: Maven Integration for Eclipse
+

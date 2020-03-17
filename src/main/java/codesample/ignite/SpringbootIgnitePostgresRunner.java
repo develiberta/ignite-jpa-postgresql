@@ -1,6 +1,5 @@
 package codesample.ignite;
 
-import codesample.ignite.entitry.Person;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+
+import codesample.ignite.entity.Person;
 
 @SpringBootApplication
 public class SpringbootIgnitePostgresRunner {

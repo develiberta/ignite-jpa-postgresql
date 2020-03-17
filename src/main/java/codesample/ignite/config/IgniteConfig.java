@@ -1,10 +1,11 @@
 package codesample.ignite.config;
 
 import codesample.ignite.cache.PersonCacheStore;
-import codesample.ignite.entitry.Person;
+import codesample.ignite.entity.Person;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteException;
 import org.apache.ignite.Ignition;
+import org.apache.ignite.cache.QueryEntity;
 import org.apache.ignite.configuration.CacheConfiguration;
 import org.apache.ignite.configuration.IgniteConfiguration;
 import org.apache.ignite.spi.communication.CommunicationSpi;
@@ -18,8 +19,11 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.cache.configuration.FactoryBuilder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @Configuration
 public class IgniteConfig {
@@ -58,13 +62,26 @@ public class IgniteConfig {
     }
 
     @Bean public CacheConfiguration personCacheConfiguration() {
-        CacheConfiguration<Long, Person> cache = new CacheConfiguration<>("person");
-        /* Postgresql은 schema를 PUBLIC으로 자동 인식하지만 cache는 별도로 설정해주어야 함 */
-        cache.setSqlSchema("PUBLIC");
+        CacheConfiguration<Long, codesample.ignite.entity.Person> cache = new CacheConfiguration<>("person");
         cache.setReadThrough(true);
         cache.setWriteThrough(true);
         cache.setCacheStoreFactory(FactoryBuilder.factoryOf(PersonCacheStore.class));
-
+        
+        /* Query Entity Configuration 시도 : 안됨 */
+        cache.setIndexedTypes(Long.class, Person.class);
+        
+        QueryEntity queryEntity = new QueryEntity();
+        queryEntity.setTableName("person");
+        queryEntity.setKeyType("java.lang.Long");
+        queryEntity.setValueType("codesample.ignite.entity.Person");
+        LinkedHashMap<String, String> fields = new LinkedHashMap<String, String>();
+        fields.put("id", "java.lang.Long");
+        fields.put("name", "java.lang.String");
+        queryEntity.setFields(fields);
+        List<QueryEntity> list = new ArrayList<QueryEntity>();
+        list.add(queryEntity);
+        cache.setQueryEntities(list);
+        
         return cache;
     }
 

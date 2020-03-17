@@ -1,6 +1,6 @@
 package codesample.ignite.cache;
 
-import codesample.ignite.entitry.Person;
+import codesample.ignite.entity.Person;
 import codesample.ignite.repository.PersonRepository;
 import org.apache.ignite.cache.store.CacheStore;
 import org.apache.ignite.lang.IgniteBiInClosure;
@@ -30,7 +30,7 @@ public class PersonCacheStore implements CacheStore<Long, Person>, BeanFactoryAw
     public void loadCache(IgniteBiInClosure<Long, Person> igniteBiInClosure, @Nullable Object... objects) throws CacheLoaderException {
         List<Person> allPersons = personRepository.findAll();
         allPersons.forEach(
-                person -> igniteBiInClosure.apply(person.getId(), person)
+                person -> igniteBiInClosure.apply(person.getPid(), person)
         );
     }
 
@@ -44,7 +44,7 @@ public class PersonCacheStore implements CacheStore<Long, Person>, BeanFactoryAw
     @Override
     public Map<Long, Person> loadAll(Iterable<? extends Long> ids) throws CacheLoaderException {
         return personRepository.findAllById((Iterable<Long>) ids).stream()
-            .collect(Collectors.toMap(Person::getId, person -> person));
+            .collect(Collectors.toMap(Person::getPid, person -> person));
     }
 
 

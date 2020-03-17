@@ -1,4 +1,4 @@
-package codesample.ignite.entitry;
+package codesample.ignite.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,39 +18,39 @@ import com.querydsl.core.annotations.QueryEntity;
 
 @Data
 @Entity
-@QueryEntity
+//@QueryEntity
 @SequenceGenerator(name = "person_seq", sequenceName = "person_seq", allocationSize = 1)
 @NoArgsConstructor
 @Getter @Setter
-@EqualsAndHashCode(of = "name")
+@EqualsAndHashCode(of = "pname")
 public class Person {
     @Id
-    @QuerySqlField
+    @QuerySqlField(index = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
-    private Long id;
+    private Long pid;
 
-    @QuerySqlField
-    private String name;
+    @QuerySqlField(index = true)
+    private String pname;
 
-	public Long getId() {
-		return id;
+	public Long getPid() {
+		return pid;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long pid) {
+		this.pid = pid;
 	}
 
-	public String getName() {
-		return name;
+	public String getPname() {
+		return pname;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String pname) {
+		this.pname = pname;
 	}
 	
 	/* */
 	public String toString() {
-		return String.format("id: %d, name: %s\n", id, name);
+		return String.format("id: %d, name: %s\n", pid, pname);
 	}
    
 }

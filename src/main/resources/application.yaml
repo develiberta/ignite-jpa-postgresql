@@ -1,12 +1,21 @@
 spring.datasource:
-  platform: postgres
-  url: jdbc:postgresql://localhost:5432/ignite
+#  platform: postgres
+#  driver-class-name: org.postgresql.Driver
+#  url: jdbc:postgresql://localhost:5432/ignite
+  driver-class-name: org.h2.Driver
+  url: jdbc:h2:file:~/testdb;DATABASE_TO_UPPER=false
   username: postgres
   password: postgre
-  driver-class-name: org.postgresql.Driver
+
 spring:
   jpa:
     properties:
       hibernate:
         temp:
           use_jdbc_metadata_defaults: false
+        ddl-auto: true
+    generate-ddl: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console

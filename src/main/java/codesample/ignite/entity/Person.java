@@ -13,12 +13,10 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 import org.apache.ignite.cache.query.annotations.QuerySqlField;
-
-import com.querydsl.core.annotations.QueryEntity;
+import org.apache.ignite.cache.query.annotations.QueryTextField;
 
 @Data
 @Entity
-//@QueryEntity
 @SequenceGenerator(name = "person_seq", sequenceName = "person_seq", allocationSize = 1)
 @NoArgsConstructor
 @Getter @Setter
@@ -29,23 +27,35 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
     private Long id;
 
+    @QueryTextField
     @QuerySqlField(index = true)
     private String name;
+    
+    @QuerySqlField(index = true)
+    private Integer age;
 
-	public Long getPid() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long pid) {
-		this.id = pid;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
-	public String getPname() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(String pname) {
-		this.name = pname;
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+	
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 	
 	/* */

@@ -16,11 +16,12 @@ public class SpringbootIgnitePostgresRunner {
         SpringApplication.run(SpringbootIgnitePostgresRunner.class, args);
     }
 
+    /* 앱 구동 시점에 igniteClient을 주입해서 실행 */
     @Bean
     public CommandLineRunner runAtStart() {
         return new CommandLineRunner() {
 
-            @Autowired
+//        	@Autowired
             private Ignite igniteClient;
 
             public void run(String... args)  {
@@ -30,6 +31,7 @@ public class SpringbootIgnitePostgresRunner {
     }
 
     private void runIgnite(Ignite igniteClient) {
+    	  /* regacy : ignite 를 사용하는 방법 */ 
 //        IgniteCache<Long, Person> cache = igniteClient.getOrCreateCache("person");
 //        cache.loadCache(null);
 //        Person p = cache.get(1L);

@@ -28,28 +28,31 @@ import java.util.List;
 @Configuration
 public class IgniteConfig {
 
+	/* igniteConfiguration()에서 설정한대로 Ignition을 시작 */
     @Bean
     Ignite igniteClient() throws IgniteException {
         return Ignition.start(igniteConfiguration());
     }
 
+    /* IgniteConfiguration 설정 부분 */
     @Bean
     public IgniteConfiguration igniteConfiguration() {
         IgniteConfiguration cfg = new IgniteConfiguration();
 
         //cfg.setClientMode(true); Do not forget to set client mode if you need to
         cfg.setPeerClassLoadingEnabled(true);
-        cfg.setDiscoverySpi(discoverySpi());
-        cfg.setCommunicationSpi(communicationSpi());
-        cfg.setCacheConfiguration(personCacheConfiguration());
+        cfg.setDiscoverySpi(discoverySpi());					// discoverySpi()는 아래에서 정의
+        cfg.setCommunicationSpi(communicationSpi());			// communicationSpi()는 아래에서 정의
+        cfg.setCacheConfiguration(personCacheConfiguration());	// 특정 CacheConfiguration 정의이며, 콤마로 연결해서 다수 추가 가능
         return cfg;
     }
 
+    /* Ignite는 DiscoverySpi를 이용해서  node가 서로를 발견하는 기능 구현 */
     @Bean
     public DiscoverySpi discoverySpi() {
-
+    	// TcpDiscoverySpi는 Ignite의 default 설정
         TcpDiscoverySpi discoverySpi = new TcpDiscoverySpi();
-        discoverySpi.setIpFinder(tcpDiscoveryVmIpFinder());
+        discoverySpi.setIpFinder(tcpDiscoveryVmIpFinder());		
 
         return discoverySpi;
     }
@@ -61,34 +64,22 @@ public class IgniteConfig {
         return communicationSpi;
     }
 
+    /* 각각의 Cache 별로 만들어주는 Configuration */
     @Bean public CacheConfiguration personCacheConfiguration() {
         CacheConfiguration<Long, codesample.ignite.entity.Person> cache = new CacheConfiguration<>("person");
         cache.setReadThrough(true);
         cache.setWriteThrough(true);
         cache.setCacheStoreFactory(FactoryBuilder.factoryOf(PersonCacheStore.class));
         
-        /* Query Entity Configuration 시도 : 안됨 */
         cache.setIndexedTypes(Long.class, Person.class);
-        
-//        QueryEntity queryEntity = new QueryEntity();
-//        queryEntity.setTableName("person");
-//        queryEntity.setKeyType("java.lang.Long");
-//        queryEntity.setValueType("codesample.ignite.entity.Person");
-//        LinkedHashMap<String, String> fields = new LinkedHashMap<String, String>();
-//        fields.put("id", "java.lang.Long");
-//        fields.put("name", "java.lang.String");
-//        queryEntity.setFields(fields);
-//        List<QueryEntity> list = new ArrayList<QueryEntity>();
-//        list.add(queryEntity);
-//        cache.setQueryEntities(list);
         
         return cache;
     }
 
+    /* It works with pre-configured list of IP addresses specified via setAddresses(Collection) method. */
     @Bean
     public TcpDiscoveryVmIpFinder tcpDiscoveryVmIpFinder() {
         TcpDiscoveryMulticastIpFinder ipFinder = new TcpDiscoveryMulticastIpFinder();
-        //ipFinder.setAddresses(Collections.singletonList("127.0.0.1:47500..47509"));
         ipFinder.setAddresses(Arrays.asList("127.0.0.1:47500..47509", "192.168.0.99"));
         
         return ipFinder;
